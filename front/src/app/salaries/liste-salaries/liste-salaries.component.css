@@ -1,0 +1,591 @@
+/* Updated liste-salaries.component.css */
+
+:host {
+  --bg-color: #fbfaf6;
+  --border-color: #031e36;
+  --text-color: #84bdc5;
+  --btn-bg: #031e36;
+  --btn-hover-bg: #84bdc5;
+  --card-bg: #fff;
+  --table-header-bg: #f0f6fa;
+  --table-row-hover: #f9fcff;
+  --dept-it: #3498db;
+  --dept-finances: #9b59b6;
+  --dept-rh: #2ecc71;
+  --dept-marketing: #e67e22;
+  --dept-ventes: #f1c40f;
+  --dept-creatif: #1abc9c;
+  --dept-management: #34495e;
+  --dept-production: #e74c3c;
+}
+
+.ok {
+  background-color: #fbfaf6;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.content-area {
+  margin-top: 70px;
+  flex: 1;
+  margin-left: 90px;
+  padding: 20px;
+  border: 5px solid var(--border-color);
+  transition: margin-left 0.3s ease;
+  background-color: #f3f6fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(3, 30, 54, 0.1);
+}
+
+.content-area.sidebar-expanded {
+  margin-left: 250px;
+}
+
+.header-section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+  text-align: center;
+}
+
+.header-section h1 {
+  font-size: 28px;
+  color: var(--border-color);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.breadcrumb a {
+  color: var(--border-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 5px;
+}
+
+.current {
+  font-weight: bold;
+}
+
+.filters-section {
+  margin-bottom: 25px;
+}
+
+.search-and-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--border-color);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(3, 30, 54, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color);
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 10px rgba(3, 30, 54, 0.15);
+  border-color: var(--text-color);
+}
+
+.btn-primary {
+  background-color: var(--btn-bg);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(3, 30, 54, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-bg);
+  box-shadow: 0 5px 15px rgba(132, 189, 197, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary .add-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.advanced-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group label {
+  color: var(--border-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.filter-select {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  color: var(--border-color);
+  background-color: var(--card-bg);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--text-color);
+  box-shadow: 0 0 5px rgba(132, 189, 197, 0.5);
+}
+
+.btn-reset {
+  background-color: transparent;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-reset:hover {
+  background-color: rgba(132, 189, 197, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(3, 30, 54, 0.1);
+  position: relative;
+  min-height: 200px;
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  border-radius: 10px;
+}
+
+.loading-spinner-large {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(3, 30, 54, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--border-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.empty-state p {
+  color: var(--border-color);
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.salaries-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-weight: 500;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(3, 30, 54, 0.05);
+}
+
+.salaries-table th,
+.salaries-table td {
+  padding: 15px;
+  text-align: left;
+}
+
+.salaries-table th {
+  background-color: var(--table-header-bg);
+  font-weight: 700;
+  color: var(--border-color);
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.salaries-table th:hover {
+  background-color: #e9f0f5;
+}
+
+.salaries-table td {
+  border-bottom: 1px solid rgba(3, 30, 54, 0.1);
+  color: var(--border-color);
+}
+
+.salarie-row {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.salarie-row:hover {
+  background-color: var(--table-row-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(3, 30, 54, 0.05);
+}
+/* Continuing liste-salaries.component.css */
+
+.department-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  min-width: 100px;
+}
+
+.dept-it {
+  background-color: var(--dept-it);
+}
+
+.dept-finances {
+  background-color: var(--dept-finances);
+}
+
+.dept-rh {
+  background-color: var(--dept-rh);
+}
+
+.dept-marketing {
+  background-color: var(--dept-marketing);
+}
+
+.dept-ventes {
+  background-color: var(--dept-ventes);
+}
+
+.dept-creatif {
+  background-color: var(--dept-creatif);
+}
+
+.dept-management {
+  background-color: var(--dept-management);
+}
+
+.dept-production {
+  background-color: var(--dept-production);
+}
+
+.actions-cell {
+  white-space: nowrap;
+  text-align: center;
+}
+
+.btn-action {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px;
+  margin: 0 3px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-action.view {
+  color: #3498db;
+}
+
+.btn-action.view:hover {
+  background-color: rgba(52, 152, 219, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-action.edit {
+  color: #f39c12;
+}
+
+.btn-action.edit:hover {
+  background-color: rgba(243, 156, 18, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-action.delete {
+  color: #e74c3c;
+}
+
+.btn-action.delete:hover {
+  background-color: rgba(231, 76, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(3, 30, 54, 0.1);
+}
+
+.results-count {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  z-index: 1000;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  background-color: #2ecc71;
+}
+
+.toast.error {
+  background-color: #e74c3c;
+}
+
+.toast.info {
+  background-color: #3498db;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .content-area {
+    margin-left: 60px;
+  }
+
+  .content-area.sidebar-expanded {
+    margin-left: 220px;
+  }
+
+  .search-and-btn {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .btn-primary {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 900px) {
+  .advanced-filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .btn-reset {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .content-area {
+    margin-left: 0;
+    width: 100%;
+    border-width: 3px;
+  }
+
+  .content-area.sidebar-expanded {
+    margin-left: 0;
+  }
+
+  .header-section h1 {
+    font-size: 24px;
+  }
+
+  .salaries-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .salaries-table th,
+  .salaries-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .department-badge {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-width: 80px;
+  }
+
+  .btn-action {
+    padding: 6px;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-area {
+    padding: 10px;
+  }
+
+  .header-section h1 {
+    font-size: 20px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+  .salaries-table th,
+  .salaries-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .department-badge {
+    padding: 3px 6px;
+    font-size: 11px;
+    min-width: 70px;
+  }
+
+  .btn-action {
+    padding: 5px;
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
+  }
+}

@@ -1,0 +1,116 @@
+<!-- Updated liste-salaries.component.html -->
+<div class="ok">
+  <app-my-header></app-my-header>
+  <div class="container">
+    <app-sidebar-client></app-sidebar-client>
+    <div class="content-area" [ngClass]="{'sidebar-expanded': !sidebarCollapsed}">
+      <div class="header-section">
+        <h1>{{ clientId ? 'Salariés de ' + clientName : 'Liste des Salariés' }}</h1>
+        <div class="breadcrumb">
+          <a [routerLink]="clientId ? ['/client-assign', clientId] : '/dashboard'">
+            {{ clientId ? clientName : 'Accueil' }}
+          </a>
+          <span class="separator">/</span>
+          <span class="current">Liste des salariés</span>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <div class="search-and-btn">
+          <div class="search-container">
+            <input type="text" placeholder="Rechercher par nom, matricule ou poste..."
+              [(ngModel)]="searchText" class="search-input" />
+            <div class="search-icon">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          <button (click)="goToAddSalarie()" class="btn-primary">
+            <span class="add-icon">+</span> Nouveau Salarié
+          </button>
+        </div>
+
+        <div class="advanced-filters">
+          <div class="filter-group">
+            <label for="department-filter">Filtrer par département:</label>
+            <select id="department-filter"
+                    [(ngModel)]="selectedDepartment"
+                    class="filter-select">
+              <option value="">Tous les départements</option>
+              <option *ngFor="let dept of departements" [value]="dept">{{ dept }}</option>
+            </select>
+          </div>
+          <button (click)="clearFilters()" class="btn-reset" *ngIf="searchText || selectedDepartment !== ''">
+            <i class="fas fa-times"></i> Réinitialiser les filtres
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div *ngIf="isLoading" class="loading-container">
+          <div class="loading-spinner-large"></div>
+          <p>Chargement des données...</p>
+        </div>
+
+        <div *ngIf="!isLoading">
+          <div *ngIf="filteredSalaries.length === 0" class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-user-slash"></i>
+            </div>
+            <p>Aucun salarié ne correspond à vos critères de recherche.</p>
+            <button class="btn-primary" (click)="clearFilters()">
+              <i class="fas fa-sync"></i> Réinitialiser les filtres
+            </button>
+          </div>
+
+          <table *ngIf="filteredSalaries.length > 0" class="salaries-table">
+            <thead>
+              <tr>
+                <th (click)="sortBy('nom')">Nom {{ getSortIcon('nom') }}</th>
+                <th (click)="sortBy('matricule')">Matricule {{ getSortIcon('matricule') }}</th>
+                <th (click)="sortBy('poste')">Poste {{ getSortIcon('poste') }}</th>
+                <th (click)="sortBy('departement')">Département {{ getSortIcon('departement') }}</th>
+                <th (click)="sortBy('dateEmbauche')">Date d'embauche {{ getSortIcon('dateEmbauche') }}</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let salarie of filteredSalaries" class="salarie-row" (click)="viewSalarie(salarie.id)">
+                <td>{{ salarie.nom }}</td>
+                <td>{{ salarie.matricule }}</td>
+                <td>{{ salarie.poste }}</td>
+                <td>
+                  <span class="department-badge" [ngClass]="'dept-' + (salarie.departement || '').toLowerCase()">
+                    {{ salarie.departement }}
+                  </span>
+                </td>
+                <td>{{ salarie.dateEmbauche | date:'dd/MM/yyyy' }}</td>
+                <td class="actions-cell">
+                  <button class="btn-action view" title="Voir détails" (click)="viewSalarie(salarie.id); $event.stopPropagation()">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn-action edit" title="Modifier" [routerLink]="['/edit-salarie', salarie.id]" (click)="$event.stopPropagation()">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn-action delete" title="Supprimer" (click)="deleteSalarie(salarie.id, $event)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="table-footer" *ngIf="filteredSalaries.length > 0">
+            <div class="results-count">
+              Affichage de {{ filteredSalaries.length }} salarié(s) sur {{ salaries.length }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" [class.show]="showToast" [ngClass]="toastType">
+    {{ toastMessage }}
+  </div>
+</div>
