@@ -1,0 +1,100 @@
+services:
+  # Service pour le backend Laravel
+  backend:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    volumes:
+      - ./back:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+    depends_on:
+      - db
+      - redis
+      - memcached
+    networks:
+      - app-network
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: client_dashboard
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MEMCACHED_HOST: memcached
+
+  # Service Nginx pour servir l'API Laravel
+  backend-nginx:
+    image: nginx:alpine
+    container_name: backend-nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./back:/var/www/html
+      - ./docker-config/nginx/backend.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  # Service pour le frontend Angular
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: angular-app
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+  # Service pour la base de données MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: client_dashboard
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: 
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Service Redis
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
+  # Service Memcached
+  memcached:
+    image: memcached:alpine
+    container_name: memcached-cache
+    ports:
+      - "11211:11211"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
